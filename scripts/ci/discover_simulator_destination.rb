@@ -41,6 +41,7 @@ end
 def parse_showdestinations(contents, config)
   contents.each_line do |line|
     next unless line.include?("{ platform:")
+    next if line.match?(/(^|,)\s*error:/)
 
     platform = line[/platform:([^,}]+)/, 1]&.strip
     identifier = line[/id:([^,}]+)/, 1]&.strip
