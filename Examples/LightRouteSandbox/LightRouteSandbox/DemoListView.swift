@@ -32,7 +32,7 @@ struct DemoListView: View {
             .accessibilityIdentifier("demo.root.presentFullScreenButton")
 
             Button("Replace Stack With Detail 2") {
-                router.go(.replaceStack([.list, .detail(2)]))
+                router.go(.replaceStack([.detail(2)]))
             }
             .accessibilityIdentifier("demo.root.replaceStackButton")
 

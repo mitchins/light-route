@@ -4,6 +4,8 @@
 
 GitHub Actions CI lives in `.github/workflows/ci.yml` and runs on `macos-15`.
 
+The workflow uses least-privilege GitHub token permissions and pins third-party actions to explicit commit SHAs.
+
 The workflow is the source of truth for:
 
 - Swift package build and test verification.
@@ -42,6 +44,8 @@ Then the workflow runs:
 - `xcodebuild test` for the tvOS sandbox scheme.
 - Sonar scan with `SONAR_TOKEN`.
 
+If `SONAR_TOKEN` is unavailable for the current event context, the workflow prints an explicit skip note instead of failing the verification job for that reason alone.
+
 ## Simulator assumptions
 
 The workflow does not hardcode the exact simulator OS version.
@@ -75,6 +79,8 @@ The workflow exits with an error instead of silently skipping when:
 - Coverage files are generated but empty.
 
 That makes runner-image drift obvious in CI logs.
+
+The Sonar step is the exception: it is skipped explicitly when `SONAR_TOKEN` is unavailable, which is expected for some untrusted fork PR contexts.
 
 ## Uploaded artifacts
 

@@ -26,8 +26,9 @@ final class SourceBoundaryTests: XCTestCase {
 
         for fileURL in swiftFiles {
             let contents = try String(contentsOf: fileURL, encoding: .utf8)
+            let sanitizedContents = sanitizedSourceContents(contents)
             for pattern in forbiddenPatterns {
-                let violation = firstViolation(of: pattern, in: contents)
+                let violation = firstViolation(of: pattern, in: sanitizedContents, originalContents: contents)
                 XCTAssertNil(violation, "Forbidden pattern \(pattern.name) found in \(relativePath(for: fileURL)): \(violation ?? "")")
             }
         }
@@ -70,7 +71,8 @@ final class SourceBoundaryTests: XCTestCase {
         for fileURL in swiftFiles {
             let relativePath = relativePath(for: fileURL)
             let contents = try String(contentsOf: fileURL, encoding: .utf8)
-            let apiLines = Set(contents
+            let sanitizedContents = sanitizedSourceContents(contents)
+            let apiLines = Set(sanitizedContents
                 .split(separator: "\n")
                 .map { $0.trimmingCharacters(in: .whitespaces) }
                 .filter { line in
@@ -91,8 +93,9 @@ final class SourceBoundaryTests: XCTestCase {
 
         for fileURL in swiftFiles {
             let contents = try String(contentsOf: fileURL, encoding: .utf8)
+            let sanitizedContents = sanitizedSourceContents(contents)
             XCTAssertFalse(
-                contents.contains("import XCTest"),
+                sanitizedContents.contains("import XCTest"),
                 "XCTest import found in production source \(relativePath(for: fileURL))"
             )
         }
@@ -122,44 +125,76 @@ final class SourceBoundaryTests: XCTestCase {
         }
     }
 
-    private func firstViolation(of pattern: ForbiddenPattern, in contents: String) -> String? {
-        for line in contents.split(separator: "\n", omittingEmptySubsequences: false) {
-            let lineText = String(line)
+    private func firstViolation(of pattern: ForbiddenPattern, in sanitizedContents: String, originalContents: String) -> String? {
+        let sanitizedLines = sanitizedContents.split(separator: "\n", omittingEmptySubsequences: false)
+        let originalLines = originalContents.split(separator: "\n", omittingEmptySubsequences: false)
+
+        for (sanitizedLine, originalLine) in zip(sanitizedLines, originalLines) {
+            let lineText = String(sanitizedLine)
+            let originalLineText = String(originalLine)
             let trimmedLine = lineText.trimmingCharacters(in: .whitespaces)
 
             if pattern.ignoredLinePrefixes.contains(where: { trimmedLine.hasPrefix($0) }) {
                 continue
             }
 
-            let codeLine = codePortion(of: lineText)
-            let range = NSRange(codeLine.startIndex..<codeLine.endIndex, in: codeLine)
-            if pattern.regex.firstMatch(in: codeLine, range: range) != nil {
-                return lineText
+            let range = NSRange(lineText.startIndex..<lineText.endIndex, in: lineText)
+            if pattern.regex.firstMatch(in: lineText, range: range) != nil {
+                return originalLineText
             }
         }
 
         return nil
     }
 
-    private func codePortion(of line: String) -> String {
+    private func sanitizedSourceContents(_ contents: String) -> String {
         var result = ""
-        var index = line.startIndex
+        var index = contents.startIndex
         var isInString = false
         var isEscaped = false
+        var isInLineComment = false
+        var blockCommentDepth = 0
 
-        while index < line.endIndex {
-            let nextIndex = line.index(after: index)
-            let character = line[index]
+        while index < contents.endIndex {
+            let nextIndex = contents.index(after: index)
+            let character = contents[index]
+            let followingCharacter = nextIndex < contents.endIndex ? contents[nextIndex] : nil
 
-            if !isInString,
-               character == "/",
-               nextIndex < line.endIndex,
-               line[nextIndex] == "/" {
-                break
+            if isInLineComment {
+                if character == "\n" {
+                    isInLineComment = false
+                    result.append("\n")
+                } else {
+                    result.append(" ")
+                }
+                index = nextIndex
+                continue
+            }
+
+            if blockCommentDepth > 0 {
+                if character == "/", followingCharacter == "*" {
+                    blockCommentDepth += 1
+                    result.append(" ")
+                    result.append(" ")
+                    index = contents.index(after: nextIndex)
+                    continue
+                }
+
+                if character == "*", followingCharacter == "/" {
+                    blockCommentDepth -= 1
+                    result.append(" ")
+                    result.append(" ")
+                    index = contents.index(after: nextIndex)
+                    continue
+                }
+
+                result.append(character == "\n" ? "\n" : " ")
+                index = nextIndex
+                continue
             }
 
             if isInString {
-                result.append(" ")
+                result.append(character == "\n" ? "\n" : " ")
 
                 if isEscaped {
                     isEscaped = false
@@ -168,6 +203,18 @@ final class SourceBoundaryTests: XCTestCase {
                 } else if character == "\"" {
                     isInString = false
                 }
+            } else if character == "/", followingCharacter == "/" {
+                isInLineComment = true
+                result.append(" ")
+                result.append(" ")
+                index = contents.index(after: nextIndex)
+                continue
+            } else if character == "/", followingCharacter == "*" {
+                blockCommentDepth = 1
+                result.append(" ")
+                result.append(" ")
+                index = contents.index(after: nextIndex)
+                continue
             } else if character == "\"" {
                 isInString = true
                 result.append(" ")

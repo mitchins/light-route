@@ -93,6 +93,8 @@ ruby scripts/ci/lcov_to_sonar_generic.rb .build/reports/lcov.info .build/reports
 
 Local Sonar upload is not part of the normal reproduction path because `SONAR_TOKEN` is provided through GitHub Actions secrets. CI is the source of truth for the actual Sonar upload.
 
+If the workflow runs in an event context where `SONAR_TOKEN` is unavailable, CI logs a skip message and still preserves the build/test/coverage verification results.
+
 ## Debugging missing coverage in Sonar
 
 If Sonar shows missing or zero coverage:

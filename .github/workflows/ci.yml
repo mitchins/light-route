@@ -7,17 +7,24 @@ on:
   pull_request:
     types: [opened, synchronize, reopened]
 
+permissions:
+  contents: read
+  pull-requests: read
+
 jobs:
   verify-and-sonar:
     name: Verify And Sonar
     runs-on: macos-15
     timeout-minutes: 90
+    env:
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
         with:
           fetch-depth: 0
+          persist-credentials: false
 
       - name: Print toolchain and SDK state
         shell: bash
@@ -189,13 +196,21 @@ jobs:
             .build/LightRouteSandbox-tvOS-ci.xcresult | tee .build/reports/tvos-sandbox-coverage.txt
 
       - name: SonarQube Scan
+        if: env.SONAR_TOKEN != '' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
         uses: SonarSource/sonarqube-scan-action@7006c4492b2e0ee0f816d36501671557c97f5995
         env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_TOKEN: ${{ env.SONAR_TOKEN }}
+
+      - name: Explain skipped Sonar scan
+        if: env.SONAR_TOKEN == '' || (github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name != github.repository)
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "Skipping Sonar scan because SONAR_TOKEN is unavailable for this event context." | tee .build/reports/sonar-skip.txt
 
       - name: Upload coverage artifacts
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: package-coverage-reports
           if-no-files-found: warn
@@ -217,10 +232,11 @@ jobs:
             .build/reports/watchos-showdestinations.txt
             .build/reports/watchos-lightroute-build.txt
             .build/reports/watchos-lightroutetesting-build.txt
+            .build/reports/sonar-skip.txt
 
       - name: Upload iOS xcresult
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: ios-sandbox-xcresult
           if-no-files-found: warn
@@ -231,7 +247,7 @@ jobs:
 
       - name: Upload tvOS xcresult
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: tvos-sandbox-xcresult
           if-no-files-found: warn

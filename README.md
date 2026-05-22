@@ -227,6 +227,7 @@ The repo includes a small test-only SwiftUI app at [Examples/LightRouteSandbox](
 Run it with:
 
 ```bash
+# Requires xcodegen on PATH. On macOS, for example: brew install xcodegen
 cd Examples/LightRouteSandbox
 xcodegen generate
 cd ../..
@@ -235,6 +236,8 @@ xcodebuild test \
     -scheme LightRouteSandbox \
     -destination 'platform=iOS Simulator,name=iPhone 16 Pro,OS=18.6'
 ```
+
+If that exact simulator runtime is not installed, run `xcodebuild -showdestinations -project Examples/LightRouteSandbox/LightRouteSandbox.xcodeproj -scheme LightRouteSandbox` and choose an available iOS simulator destination.
 
 The sandbox also includes a configured tvOS target and `LightRouteSandbox-tvOS` scheme. tvOS execution is documented in [docs/demo/tvos-sandbox-verification.md](docs/demo/tvos-sandbox-verification.md).
 

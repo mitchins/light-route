@@ -12,6 +12,8 @@ This is a deliberately small SwiftUI app for exercising LightRoute in real prese
 
 ## Generate The Project
 
+Requires `xcodegen` on your `PATH`. On macOS, one straightforward option is `brew install xcodegen`.
+
 ```bash
 cd Examples/LightRouteSandbox
 xcodegen generate

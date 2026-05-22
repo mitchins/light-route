@@ -22,7 +22,7 @@ public final class RouteStore<Route: Hashable>: Router {
         switch presentation {
         case .push(let route):
             path.append(route)
-        case .sheet (let route):
+        case .sheet(let route):
             sheet = route
             fullScreen = nil
         case .fullScreen(let route):

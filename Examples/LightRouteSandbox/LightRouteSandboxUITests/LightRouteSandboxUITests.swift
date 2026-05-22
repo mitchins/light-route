@@ -1,17 +1,12 @@
 import XCTest
 
+@MainActor
 final class LightRouteSandboxUITests: XCTestCase {
     private var app: XCUIApplication!
 
     override func setUp() {
         super.setUp()
         continueAfterFailure = false
-        app = XCUIApplication()
-    }
-
-    override func tearDown() {
-        app = nil
-        super.tearDown()
     }
 
     func testLaunchStartsOnRoot() {
@@ -84,6 +79,7 @@ final class LightRouteSandboxUITests: XCTestCase {
     }
 
     private func launch(arguments: [String] = [], expectRoot: Bool = true) {
+        app = XCUIApplication()
         app.launchArguments = arguments
         app.launch()
         if expectRoot {
