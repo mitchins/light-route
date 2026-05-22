@@ -21,7 +21,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
         with:
           fetch-depth: 0
           persist-credentials: false
@@ -115,32 +115,17 @@ jobs:
           ios_destinations="$(xcodebuild -project Examples/LightRouteSandbox/LightRouteSandbox.xcodeproj -scheme LightRouteSandbox -showdestinations)"
           printf '%s\n' "$ios_destinations" | tee .build/reports/ios-showdestinations.txt
 
-          ios_destination="$(printf '%s\n' "$ios_destinations" | perl -ne 'if (/platform:iOS Simulator,.*OS:([^,]+), name:([^}]+)/) { $os=$1; $name=$2; $name =~ s/^\s+|\s+$//g; next unless $name =~ /^iPhone/; print "platform=iOS Simulator,name=$name,OS=$os\n"; exit }')"
-
-          if [[ -z "$ios_destination" ]]; then
-            echo "Failed to discover an iOS simulator destination for LightRouteSandbox." >&2
-            exit 1
-          fi
+          ios_destination="$(ruby scripts/ci/discover_simulator_destination.rb ios .build/reports/ios-showdestinations.txt)"
 
           tvos_destinations="$(xcodebuild -project Examples/LightRouteSandbox/LightRouteSandbox.xcodeproj -scheme LightRouteSandbox-tvOS -showdestinations)"
           printf '%s\n' "$tvos_destinations" | tee .build/reports/tvos-showdestinations.txt
 
-          tvos_destination="$(printf '%s\n' "$tvos_destinations" | perl -ne 'if (/platform:tvOS Simulator,.*OS:([^,]+), name:([^}]+)/) { $os=$1; $name=$2; $name =~ s/^\s+|\s+$//g; next unless $name =~ /^Apple TV/; print "platform=tvOS Simulator,name=$name,OS=$os\n"; exit }')"
-
-          if [[ -z "$tvos_destination" ]]; then
-            echo "Failed to discover a tvOS simulator destination for LightRouteSandbox-tvOS." >&2
-            exit 1
-          fi
+          tvos_destination="$(ruby scripts/ci/discover_simulator_destination.rb tvos .build/reports/tvos-showdestinations.txt)"
 
           watch_destinations="$(xcodebuild -scheme LightRoute -showdestinations)"
           printf '%s\n' "$watch_destinations" | tee .build/reports/watchos-showdestinations.txt
 
-          watch_destination="$(printf '%s\n' "$watch_destinations" | perl -ne 'if (/platform:watchOS Simulator,.*OS:([^,]+), name:([^}]+)/) { $os=$1; $name=$2; $name =~ s/^\s+|\s+$//g; print "platform=watchOS Simulator,name=$name,OS=$os\n"; exit }')"
-
-          if [[ -z "$watch_destination" ]]; then
-            echo "Failed to discover a watchOS simulator destination for the package schemes." >&2
-            exit 1
-          fi
+          watch_destination="$(ruby scripts/ci/discover_simulator_destination.rb watchos .build/reports/watchos-showdestinations.txt)"
 
           echo "ios_destination=$ios_destination" >> "$GITHUB_OUTPUT"
           echo "tvos_destination=$tvos_destination" >> "$GITHUB_OUTPUT"
@@ -195,6 +180,41 @@ jobs:
           xcrun xccov view --report --only-targets \
             .build/LightRouteSandbox-tvOS-ci.xcresult | tee .build/reports/tvos-sandbox-coverage.txt
 
+      - name: Record sandbox artifact availability
+        if: always()
+        id: sandbox-artifacts
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          ios_present=false
+          tvos_present=false
+
+          for path in \
+            .build/LightRouteSandbox-iOS-ci.xcresult \
+            .build/reports/ios-sandbox-test.log \
+            .build/reports/ios-sandbox-summary.json \
+            .build/reports/ios-sandbox-coverage.txt; do
+            if [[ -e "$path" ]]; then
+              ios_present=true
+              break
+            fi
+          done
+
+          for path in \
+            .build/LightRouteSandbox-tvOS-ci.xcresult \
+            .build/reports/tvos-sandbox-test.log \
+            .build/reports/tvos-sandbox-summary.json \
+            .build/reports/tvos-sandbox-coverage.txt; do
+            if [[ -e "$path" ]]; then
+              tvos_present=true
+              break
+            fi
+          done
+
+          echo "ios_present=$ios_present" >> "$GITHUB_OUTPUT"
+          echo "tvos_present=$tvos_present" >> "$GITHUB_OUTPUT"
+
       - name: SonarQube Scan
         if: env.SONAR_TOKEN != '' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
         uses: SonarSource/sonarqube-scan-action@7006c4492b2e0ee0f816d36501671557c97f5995
@@ -210,7 +230,7 @@ jobs:
 
       - name: Upload coverage artifacts
         if: always()
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         with:
           name: package-coverage-reports
           if-no-files-found: warn
@@ -227,6 +247,8 @@ jobs:
             .build/reports/xcode-version.txt
             .build/reports/xcode-showsdks.txt
             .build/reports/simctl-runtimes.txt
+            .build/reports/ios-sandbox-test.log
+            .build/reports/tvos-sandbox-test.log
             .build/reports/ios-showdestinations.txt
             .build/reports/tvos-showdestinations.txt
             .build/reports/watchos-showdestinations.txt
@@ -235,23 +257,25 @@ jobs:
             .build/reports/sonar-skip.txt
 
       - name: Upload iOS xcresult
-        if: always()
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always() && steps.sandbox-artifacts.outputs.ios_present == 'true'
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         with:
           name: ios-sandbox-xcresult
-          if-no-files-found: warn
+          if-no-files-found: error
           path: |
             .build/LightRouteSandbox-iOS-ci.xcresult
+            .build/reports/ios-sandbox-test.log
             .build/reports/ios-sandbox-summary.json
             .build/reports/ios-sandbox-coverage.txt
 
       - name: Upload tvOS xcresult
-        if: always()
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always() && steps.sandbox-artifacts.outputs.tvos_present == 'true'
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         with:
           name: tvos-sandbox-xcresult
-          if-no-files-found: warn
+          if-no-files-found: error
           path: |
             .build/LightRouteSandbox-tvOS-ci.xcresult
+            .build/reports/tvos-sandbox-test.log
             .build/reports/tvos-sandbox-summary.json
             .build/reports/tvos-sandbox-coverage.txt
