@@ -61,8 +61,8 @@ final class SourceBoundaryTests: XCTestCase {
             ],
             "Sources/LightRouteTesting/RouterSpy.swift": [
                 "public final class RouterSpy<Route: Hashable>: Router {",
-                "public private(set) var presentations: [Presentation<Route>] = []",
-                "public init() {}",
+                "public private(set) var presentations: [Presentation<Route>]",
+                "public init() {",
                 "public func go(_ presentation: Presentation<Route>) {",
                 "public func reset() {"
             ]
