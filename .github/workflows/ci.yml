@@ -1,0 +1,257 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  verify-and-sonar:
+    name: Verify And Sonar
+    runs-on: macos-15
+    timeout-minutes: 90
+    env:
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Print toolchain and SDK state
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          mkdir -p .build/reports
+
+          swift --version | tee .build/reports/swift-version.txt
+          xcodebuild -version | tee .build/reports/xcode-version.txt
+          xcodebuild -showsdks | tee .build/reports/xcode-showsdks.txt
+          xcrun simctl list runtimes available | tee .build/reports/simctl-runtimes.txt
+
+      - name: Package verification
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          swift build | tee .build/reports/swift-build.txt
+          swift test | tee .build/reports/swift-test.txt
+          swift test --enable-code-coverage | tee .build/reports/swift-test-coverage.txt
+          swift package describe | tee .build/reports/swift-package-describe.txt
+          swift package dump-package | tee .build/reports/swift-package-dump.json
+
+      - name: Discover package coverage artifacts
+        id: coverage-paths
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          profdata_path="$(find .build -type f -path '*/codecov/default.profdata' | head -n 1)"
+          test_binary_path="$(find .build -type f -path '*/LightRoutePackageTests.xctest/Contents/MacOS/LightRoutePackageTests' | head -n 1)"
+
+          if [[ -z "$profdata_path" ]]; then
+            echo "Failed to find SwiftPM coverage profile (.profdata)." >&2
+            find .build -type f | sort >&2
+            exit 1
+          fi
+
+          if [[ -z "$test_binary_path" ]]; then
+            echo "Failed to find the LightRoutePackageTests test binary." >&2
+            find .build -type f | sort >&2
+            exit 1
+          fi
+
+          echo "profdata_path=$profdata_path" >> "$GITHUB_OUTPUT"
+          echo "test_binary_path=$test_binary_path" >> "$GITHUB_OUTPUT"
+
+      - name: Generate package coverage reports
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          mkdir -p .build/reports
+
+          report_ignore='(/\.build/|/Tests/|/Examples/|/docs/)'
+          source_args=(Sources/LightRoute/*.swift Sources/LightRouteTesting/*.swift)
+
+          xcrun llvm-cov report \
+            "${{ steps.coverage-paths.outputs.test_binary_path }}" \
+            -instr-profile "${{ steps.coverage-paths.outputs.profdata_path }}" \
+            -ignore-filename-regex="$report_ignore" \
+            "${source_args[@]}" | tee .build/reports/package-coverage.txt
+
+          xcrun llvm-cov export \
+            -format=lcov \
+            "${{ steps.coverage-paths.outputs.test_binary_path }}" \
+            -instr-profile "${{ steps.coverage-paths.outputs.profdata_path }}" \
+            -ignore-filename-regex="$report_ignore" \
+            "${source_args[@]}" > .build/reports/lcov.info
+
+          test -s .build/reports/lcov.info
+
+          ruby scripts/ci/lcov_to_sonar_generic.rb \
+            .build/reports/lcov.info \
+            .build/reports/sonar-generic-coverage.xml
+
+          test -s .build/reports/sonar-generic-coverage.xml
+
+      - name: Discover simulator destinations
+        id: destinations
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          mkdir -p .build/reports
+
+          ios_destinations="$(xcodebuild -project Examples/LightRouteSandbox/LightRouteSandbox.xcodeproj -scheme LightRouteSandbox -showdestinations)"
+          printf '%s\n' "$ios_destinations" | tee .build/reports/ios-showdestinations.txt
+
+          ios_destination="$(printf '%s\n' "$ios_destinations" | perl -ne 'if (/platform:iOS Simulator,.*OS:([^,]+), name:([^}]+)/) { $os=$1; $name=$2; $name =~ s/^\s+|\s+$//g; next unless $name =~ /^iPhone/; print "platform=iOS Simulator,name=$name,OS=$os\n"; exit }')"
+
+          if [[ -z "$ios_destination" ]]; then
+            echo "Failed to discover an iOS simulator destination for LightRouteSandbox." >&2
+            exit 1
+          fi
+
+          tvos_destinations="$(xcodebuild -project Examples/LightRouteSandbox/LightRouteSandbox.xcodeproj -scheme LightRouteSandbox-tvOS -showdestinations)"
+          printf '%s\n' "$tvos_destinations" | tee .build/reports/tvos-showdestinations.txt
+
+          tvos_destination="$(printf '%s\n' "$tvos_destinations" | perl -ne 'if (/platform:tvOS Simulator,.*OS:([^,]+), name:([^}]+)/) { $os=$1; $name=$2; $name =~ s/^\s+|\s+$//g; next unless $name =~ /^Apple TV/; print "platform=tvOS Simulator,name=$name,OS=$os\n"; exit }')"
+
+          if [[ -z "$tvos_destination" ]]; then
+            echo "Failed to discover a tvOS simulator destination for LightRouteSandbox-tvOS." >&2
+            exit 1
+          fi
+
+          watch_destinations="$(xcodebuild -scheme LightRoute -showdestinations)"
+          printf '%s\n' "$watch_destinations" | tee .build/reports/watchos-showdestinations.txt
+
+          watch_destination="$(printf '%s\n' "$watch_destinations" | perl -ne 'if (/platform:watchOS Simulator,.*OS:([^,]+), name:([^}]+)/) { $os=$1; $name=$2; $name =~ s/^\s+|\s+$//g; print "platform=watchOS Simulator,name=$name,OS=$os\n"; exit }')"
+
+          if [[ -z "$watch_destination" ]]; then
+            echo "Failed to discover a watchOS simulator destination for the package schemes." >&2
+            exit 1
+          fi
+
+          echo "ios_destination=$ios_destination" >> "$GITHUB_OUTPUT"
+          echo "tvos_destination=$tvos_destination" >> "$GITHUB_OUTPUT"
+          echo "watch_destination=$watch_destination" >> "$GITHUB_OUTPUT"
+
+      - name: watchOS compile verification
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          xcodebuild build \
+            -scheme LightRoute \
+            -destination "${{ steps.destinations.outputs.watch_destination }}" | tee .build/reports/watchos-lightroute-build.txt
+
+          xcodebuild build \
+            -scheme LightRouteTesting \
+            -destination "${{ steps.destinations.outputs.watch_destination }}" | tee .build/reports/watchos-lightroutetesting-build.txt
+
+      - name: iOS sandbox UI tests
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          xcodebuild test \
+            -project Examples/LightRouteSandbox/LightRouteSandbox.xcodeproj \
+            -scheme LightRouteSandbox \
+            -destination "${{ steps.destinations.outputs.ios_destination }}" \
+            -enableCodeCoverage YES \
+            -resultBundlePath .build/LightRouteSandbox-iOS-ci.xcresult | tee .build/reports/ios-sandbox-test.log
+
+          xcrun xcresulttool get test-results summary \
+            --path .build/LightRouteSandbox-iOS-ci.xcresult | tee .build/reports/ios-sandbox-summary.json
+
+          xcrun xccov view --report --only-targets \
+            .build/LightRouteSandbox-iOS-ci.xcresult | tee .build/reports/ios-sandbox-coverage.txt
+
+      - name: tvOS sandbox UI tests
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          xcodebuild test \
+            -project Examples/LightRouteSandbox/LightRouteSandbox.xcodeproj \
+            -scheme LightRouteSandbox-tvOS \
+            -destination "${{ steps.destinations.outputs.tvos_destination }}" \
+            -enableCodeCoverage YES \
+            -resultBundlePath .build/LightRouteSandbox-tvOS-ci.xcresult | tee .build/reports/tvos-sandbox-test.log
+
+          xcrun xcresulttool get test-results summary \
+            --path .build/LightRouteSandbox-tvOS-ci.xcresult | tee .build/reports/tvos-sandbox-summary.json
+
+          xcrun xccov view --report --only-targets \
+            .build/LightRouteSandbox-tvOS-ci.xcresult | tee .build/reports/tvos-sandbox-coverage.txt
+
+      - name: SonarQube Scan
+        if: env.SONAR_TOKEN != '' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
+        uses: SonarSource/sonarqube-scan-action@7006c4492b2e0ee0f816d36501671557c97f5995
+        env:
+          SONAR_TOKEN: ${{ env.SONAR_TOKEN }}
+
+      - name: Explain skipped Sonar scan
+        if: env.SONAR_TOKEN == '' || (github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name != github.repository)
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "Skipping Sonar scan because SONAR_TOKEN is unavailable for this event context." | tee .build/reports/sonar-skip.txt
+
+      - name: Upload coverage artifacts
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: package-coverage-reports
+          if-no-files-found: warn
+          path: |
+            .build/reports/package-coverage.txt
+            .build/reports/lcov.info
+            .build/reports/sonar-generic-coverage.xml
+            .build/reports/swift-build.txt
+            .build/reports/swift-test.txt
+            .build/reports/swift-test-coverage.txt
+            .build/reports/swift-package-describe.txt
+            .build/reports/swift-package-dump.json
+            .build/reports/swift-version.txt
+            .build/reports/xcode-version.txt
+            .build/reports/xcode-showsdks.txt
+            .build/reports/simctl-runtimes.txt
+            .build/reports/ios-showdestinations.txt
+            .build/reports/tvos-showdestinations.txt
+            .build/reports/watchos-showdestinations.txt
+            .build/reports/watchos-lightroute-build.txt
+            .build/reports/watchos-lightroutetesting-build.txt
+            .build/reports/sonar-skip.txt
+
+      - name: Upload iOS xcresult
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: ios-sandbox-xcresult
+          if-no-files-found: warn
+          path: |
+            .build/LightRouteSandbox-iOS-ci.xcresult
+            .build/reports/ios-sandbox-summary.json
+            .build/reports/ios-sandbox-coverage.txt
+
+      - name: Upload tvOS xcresult
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: tvos-sandbox-xcresult
+          if-no-files-found: warn
+          path: |
+            .build/LightRouteSandbox-tvOS-ci.xcresult
+            .build/reports/tvos-sandbox-summary.json
+            .build/reports/tvos-sandbox-coverage.txt

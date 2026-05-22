@@ -1,0 +1,670 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		10C448642F149DDD3B4AE9E9 /* DemoRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A8CFEE59D783B3CD85D3B2F /* DemoRoute.swift */; };
+		137A477633D4B6C6B7569C58 /* DemoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DCE094496B8DA7E4475B5F /* DemoListView.swift */; };
+		1FF972A9B32B381850E4E35F /* DemoEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA2BCD719B111FC550847D6 /* DemoEditView.swift */; };
+		2142ABFC2AFFFC12D2020152 /* LightRouteSandboxApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99DB8752E3CF09619CE30E3A /* LightRouteSandboxApp.swift */; };
+		254DD50D3FEF84BDE0B8A4D8 /* DemoEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA2BCD719B111FC550847D6 /* DemoEditView.swift */; };
+		58589341973CDAF542096714 /* LightRouteSandboxApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99DB8752E3CF09619CE30E3A /* LightRouteSandboxApp.swift */; };
+		607AD672F4C9782BAA641152 /* LightRoute in Frameworks */ = {isa = PBXBuildFile; productRef = 47331B79AB16240C3C0AA930 /* LightRoute */; };
+		6F235B66943AD1A674C471BE /* DemoFlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D8D2625301787AABBA5AE9 /* DemoFlowView.swift */; };
+		76A7BA15F56AED20374258B5 /* DemoDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86FEF4A06B39B4082A6FA219 /* DemoDetailView.swift */; };
+		77FB165C47C6B1D0DA8E7DA0 /* DemoRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A8CFEE59D783B3CD85D3B2F /* DemoRoute.swift */; };
+		890D3A1360DB94A38199A093 /* LightRouteSandboxUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F7235FF5A92526CD0BA14B /* LightRouteSandboxUITests.swift */; };
+		8E4684EFF6A30B8B42151B66 /* DemoFlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D8D2625301787AABBA5AE9 /* DemoFlowView.swift */; };
+		98A67F9C8520B441B31EEDB3 /* DemoContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6A6C2AE93DAAC3150EB6257 /* DemoContainer.swift */; };
+		9A50F2A5D5D4043594999B2C /* LightRoute in Frameworks */ = {isa = PBXBuildFile; productRef = FE2F8B6F3240528314235EBA /* LightRoute */; };
+		A0FED62CABD631E355030072 /* DemoSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBE7D1F267BD7AA29C14600F /* DemoSheetView.swift */; };
+		A80C758F5F0D759E837CE85A /* DemoFullScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A722E2333FF15ECA79AC9C05 /* DemoFullScreenView.swift */; };
+		CF9515668C3C09AF82BD5302 /* DemoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DCE094496B8DA7E4475B5F /* DemoListView.swift */; };
+		D20E3439249AD1794B960D90 /* DemoFullScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A722E2333FF15ECA79AC9C05 /* DemoFullScreenView.swift */; };
+		DDA29E6EDA8D0C1B593865FC /* DemoSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBE7D1F267BD7AA29C14600F /* DemoSheetView.swift */; };
+		EAA34AFA58AFF35A1B196DEE /* LightRouteSandboxUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F7235FF5A92526CD0BA14B /* LightRouteSandboxUITests.swift */; };
+		FAD7B8FC6A5ABF4A721769D5 /* DemoDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86FEF4A06B39B4082A6FA219 /* DemoDetailView.swift */; };
+		FFCECF998FEEA622E34B11BE /* DemoContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6A6C2AE93DAAC3150EB6257 /* DemoContainer.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		8A25A298B7FF705B2761B152 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 24D7BEE65D3106D4BA80CBBE /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 52A7D8A1AA87C03FE5D5279E;
+			remoteInfo = LightRouteSandboxTV;
+		};
+		D599570CD7C4E4A9F2448C71 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 24D7BEE65D3106D4BA80CBBE /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5E39D6528EDEFE15FB2E47E2;
+			remoteInfo = LightRouteSandbox;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		5CA2BCD719B111FC550847D6 /* DemoEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoEditView.swift; sourceTree = "<group>"; };
+		6A8CFEE59D783B3CD85D3B2F /* DemoRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoRoute.swift; sourceTree = "<group>"; };
+		6CD31EBE1E56CF9F1B5E30E9 /* light-route */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "light-route"; path = ../..; sourceTree = SOURCE_ROOT; };
+		6F437F9F6C2E5F47FF7B5717 /* LightRouteSandboxTVUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = LightRouteSandboxTVUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		71C84774772D896CC7B8879A /* LightRouteSandboxTV.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = LightRouteSandboxTV.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		86FEF4A06B39B4082A6FA219 /* DemoDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoDetailView.swift; sourceTree = "<group>"; };
+		93DCE094496B8DA7E4475B5F /* DemoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoListView.swift; sourceTree = "<group>"; };
+		99DB8752E3CF09619CE30E3A /* LightRouteSandboxApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightRouteSandboxApp.swift; sourceTree = "<group>"; };
+		9A6844499BF756B78024E209 /* LightRouteSandbox.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = LightRouteSandbox.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9EF0F0EB5EE8E3E7B6ACE8F7 /* LightRouteSandboxUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = LightRouteSandboxUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A722E2333FF15ECA79AC9C05 /* DemoFullScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoFullScreenView.swift; sourceTree = "<group>"; };
+		C9D8D2625301787AABBA5AE9 /* DemoFlowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoFlowView.swift; sourceTree = "<group>"; };
+		D6F7235FF5A92526CD0BA14B /* LightRouteSandboxUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightRouteSandboxUITests.swift; sourceTree = "<group>"; };
+		F6A6C2AE93DAAC3150EB6257 /* DemoContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoContainer.swift; sourceTree = "<group>"; };
+		FBE7D1F267BD7AA29C14600F /* DemoSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoSheetView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		2F323A6100B53795ADBE9B9E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				607AD672F4C9782BAA641152 /* LightRoute in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5672677053ADC9FC1F4B35A0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9A50F2A5D5D4043594999B2C /* LightRoute in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2FAEDEE3143BFE930D5AA687 /* LightRouteSandbox */ = {
+			isa = PBXGroup;
+			children = (
+				F6A6C2AE93DAAC3150EB6257 /* DemoContainer.swift */,
+				86FEF4A06B39B4082A6FA219 /* DemoDetailView.swift */,
+				5CA2BCD719B111FC550847D6 /* DemoEditView.swift */,
+				C9D8D2625301787AABBA5AE9 /* DemoFlowView.swift */,
+				A722E2333FF15ECA79AC9C05 /* DemoFullScreenView.swift */,
+				93DCE094496B8DA7E4475B5F /* DemoListView.swift */,
+				6A8CFEE59D783B3CD85D3B2F /* DemoRoute.swift */,
+				FBE7D1F267BD7AA29C14600F /* DemoSheetView.swift */,
+				99DB8752E3CF09619CE30E3A /* LightRouteSandboxApp.swift */,
+			);
+			path = LightRouteSandbox;
+			sourceTree = "<group>";
+		};
+		496ECAD67D23B36ED152B0AF = {
+			isa = PBXGroup;
+			children = (
+				2FAEDEE3143BFE930D5AA687 /* LightRouteSandbox */,
+				CA86293937A0508274CE832F /* LightRouteSandboxUITests */,
+				63565CF79A64BE8E7375DC9D /* Packages */,
+				5FAD7A04537ACD9A59ABDEA2 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		5FAD7A04537ACD9A59ABDEA2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9A6844499BF756B78024E209 /* LightRouteSandbox.app */,
+				71C84774772D896CC7B8879A /* LightRouteSandboxTV.app */,
+				6F437F9F6C2E5F47FF7B5717 /* LightRouteSandboxTVUITests.xctest */,
+				9EF0F0EB5EE8E3E7B6ACE8F7 /* LightRouteSandboxUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		63565CF79A64BE8E7375DC9D /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				6CD31EBE1E56CF9F1B5E30E9 /* light-route */,
+			);
+			name = Packages;
+			sourceTree = "<group>";
+		};
+		CA86293937A0508274CE832F /* LightRouteSandboxUITests */ = {
+			isa = PBXGroup;
+			children = (
+				D6F7235FF5A92526CD0BA14B /* LightRouteSandboxUITests.swift */,
+			);
+			path = LightRouteSandboxUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		3E2C1F5F4398C6DF3DD6EC69 /* LightRouteSandboxTVUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A177874AA93DE5108621AFFB /* Build configuration list for PBXNativeTarget "LightRouteSandboxTVUITests" */;
+			buildPhases = (
+				59895FBAA35E77B43CE6D4F9 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A34A1A2815CF482636403F4C /* PBXTargetDependency */,
+			);
+			name = LightRouteSandboxTVUITests;
+			packageProductDependencies = (
+			);
+			productName = LightRouteSandboxTVUITests;
+			productReference = 6F437F9F6C2E5F47FF7B5717 /* LightRouteSandboxTVUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		52A7D8A1AA87C03FE5D5279E /* LightRouteSandboxTV */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DD36AF8F9BB14850BD09DE31 /* Build configuration list for PBXNativeTarget "LightRouteSandboxTV" */;
+			buildPhases = (
+				0522017BA4EB7076150E4908 /* Sources */,
+				5672677053ADC9FC1F4B35A0 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LightRouteSandboxTV;
+			packageProductDependencies = (
+				FE2F8B6F3240528314235EBA /* LightRoute */,
+			);
+			productName = LightRouteSandboxTV;
+			productReference = 71C84774772D896CC7B8879A /* LightRouteSandboxTV.app */;
+			productType = "com.apple.product-type.application";
+		};
+		5E39D6528EDEFE15FB2E47E2 /* LightRouteSandbox */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A4822D90AEA644B17F9D0E8F /* Build configuration list for PBXNativeTarget "LightRouteSandbox" */;
+			buildPhases = (
+				3D8A55EA1B53B2CF8C2F822F /* Sources */,
+				2F323A6100B53795ADBE9B9E /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LightRouteSandbox;
+			packageProductDependencies = (
+				47331B79AB16240C3C0AA930 /* LightRoute */,
+			);
+			productName = LightRouteSandbox;
+			productReference = 9A6844499BF756B78024E209 /* LightRouteSandbox.app */;
+			productType = "com.apple.product-type.application";
+		};
+		BACA768F6512FE863D8C8C8A /* LightRouteSandboxUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F0A67C3559A48038F234D5F8 /* Build configuration list for PBXNativeTarget "LightRouteSandboxUITests" */;
+			buildPhases = (
+				31A9CB2D7076EAC89B953CFF /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				ACEADCF0A0BEB6FB5490851C /* PBXTargetDependency */,
+			);
+			name = LightRouteSandboxUITests;
+			packageProductDependencies = (
+			);
+			productName = LightRouteSandboxUITests;
+			productReference = 9EF0F0EB5EE8E3E7B6ACE8F7 /* LightRouteSandboxUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		24D7BEE65D3106D4BA80CBBE /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					3E2C1F5F4398C6DF3DD6EC69 = {
+						TestTargetID = 52A7D8A1AA87C03FE5D5279E;
+					};
+					BACA768F6512FE863D8C8C8A = {
+						TestTargetID = 5E39D6528EDEFE15FB2E47E2;
+					};
+				};
+			};
+			buildConfigurationList = 31B49FFC11A0394CAE5363B0 /* Build configuration list for PBXProject "LightRouteSandbox" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 496ECAD67D23B36ED152B0AF;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				992BA1BB50E339B2C42489B8 /* XCLocalSwiftPackageReference "../.." */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 5FAD7A04537ACD9A59ABDEA2 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				5E39D6528EDEFE15FB2E47E2 /* LightRouteSandbox */,
+				52A7D8A1AA87C03FE5D5279E /* LightRouteSandboxTV */,
+				3E2C1F5F4398C6DF3DD6EC69 /* LightRouteSandboxTVUITests */,
+				BACA768F6512FE863D8C8C8A /* LightRouteSandboxUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		0522017BA4EB7076150E4908 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FFCECF998FEEA622E34B11BE /* DemoContainer.swift in Sources */,
+				76A7BA15F56AED20374258B5 /* DemoDetailView.swift in Sources */,
+				254DD50D3FEF84BDE0B8A4D8 /* DemoEditView.swift in Sources */,
+				8E4684EFF6A30B8B42151B66 /* DemoFlowView.swift in Sources */,
+				A80C758F5F0D759E837CE85A /* DemoFullScreenView.swift in Sources */,
+				137A477633D4B6C6B7569C58 /* DemoListView.swift in Sources */,
+				77FB165C47C6B1D0DA8E7DA0 /* DemoRoute.swift in Sources */,
+				A0FED62CABD631E355030072 /* DemoSheetView.swift in Sources */,
+				58589341973CDAF542096714 /* LightRouteSandboxApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		31A9CB2D7076EAC89B953CFF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				890D3A1360DB94A38199A093 /* LightRouteSandboxUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3D8A55EA1B53B2CF8C2F822F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				98A67F9C8520B441B31EEDB3 /* DemoContainer.swift in Sources */,
+				FAD7B8FC6A5ABF4A721769D5 /* DemoDetailView.swift in Sources */,
+				1FF972A9B32B381850E4E35F /* DemoEditView.swift in Sources */,
+				6F235B66943AD1A674C471BE /* DemoFlowView.swift in Sources */,
+				D20E3439249AD1794B960D90 /* DemoFullScreenView.swift in Sources */,
+				CF9515668C3C09AF82BD5302 /* DemoListView.swift in Sources */,
+				10C448642F149DDD3B4AE9E9 /* DemoRoute.swift in Sources */,
+				DDA29E6EDA8D0C1B593865FC /* DemoSheetView.swift in Sources */,
+				2142ABFC2AFFFC12D2020152 /* LightRouteSandboxApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		59895FBAA35E77B43CE6D4F9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EAA34AFA58AFF35A1B196DEE /* LightRouteSandboxUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		A34A1A2815CF482636403F4C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 52A7D8A1AA87C03FE5D5279E /* LightRouteSandboxTV */;
+			targetProxy = 8A25A298B7FF705B2761B152 /* PBXContainerItemProxy */;
+		};
+		ACEADCF0A0BEB6FB5490851C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5E39D6528EDEFE15FB2E47E2 /* LightRouteSandbox */;
+			targetProxy = D599570CD7C4E4A9F2448C71 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		199D82AD1DA3E53E32223653 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = dev.lightroute.sandbox;
+				PRODUCT_NAME = LightRouteSandbox;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		6DE472F64C4A3BAB9961AA98 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = dev.lightroute.sandbox;
+				PRODUCT_NAME = LightRouteSandbox;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		839C8974E6DEC50BEA4F7046 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = dev.lightroute.sandbox.tvos;
+				PRODUCT_NAME = LightRouteSandbox;
+				SDKROOT = appletvos;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 18.0;
+			};
+			name = Release;
+		};
+		8548CE2D7E482DFA9B06D078 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = dev.lightroute.sandbox.tvos.uitests;
+				SDKROOT = appletvos;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = 3;
+				TEST_TARGET_NAME = LightRouteSandboxTV;
+				TVOS_DEPLOYMENT_TARGET = 18.0;
+			};
+			name = Release;
+		};
+		94AB79FBBD8A619986901416 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = dev.lightroute.sandbox.tvos;
+				PRODUCT_NAME = LightRouteSandbox;
+				SDKROOT = appletvos;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 18.0;
+			};
+			name = Debug;
+		};
+		9CA52A3AB1E40CDD25A27EA7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = dev.lightroute.sandbox.uitests;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = LightRouteSandbox;
+			};
+			name = Release;
+		};
+		A5AB9F9F317F755040B4620F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
+				TVOS_DEPLOYMENT_TARGET = 18.0;
+			};
+			name = Debug;
+		};
+		D0E0CAC454B92AA1E8F64280 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = dev.lightroute.sandbox.tvos.uitests;
+				SDKROOT = appletvos;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = 3;
+				TEST_TARGET_NAME = LightRouteSandboxTV;
+				TVOS_DEPLOYMENT_TARGET = 18.0;
+			};
+			name = Debug;
+		};
+		E4AE8BE9FEE9906837A9BEF5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 6.0;
+				TVOS_DEPLOYMENT_TARGET = 18.0;
+			};
+			name = Release;
+		};
+		E94FB062AC907406A5EB03A7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = dev.lightroute.sandbox.uitests;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = LightRouteSandbox;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		31B49FFC11A0394CAE5363B0 /* Build configuration list for PBXProject "LightRouteSandbox" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A5AB9F9F317F755040B4620F /* Debug */,
+				E4AE8BE9FEE9906837A9BEF5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		A177874AA93DE5108621AFFB /* Build configuration list for PBXNativeTarget "LightRouteSandboxTVUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D0E0CAC454B92AA1E8F64280 /* Debug */,
+				8548CE2D7E482DFA9B06D078 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		A4822D90AEA644B17F9D0E8F /* Build configuration list for PBXNativeTarget "LightRouteSandbox" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6DE472F64C4A3BAB9961AA98 /* Debug */,
+				199D82AD1DA3E53E32223653 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		DD36AF8F9BB14850BD09DE31 /* Build configuration list for PBXNativeTarget "LightRouteSandboxTV" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				94AB79FBBD8A619986901416 /* Debug */,
+				839C8974E6DEC50BEA4F7046 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		F0A67C3559A48038F234D5F8 /* Build configuration list for PBXNativeTarget "LightRouteSandboxUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E94FB062AC907406A5EB03A7 /* Debug */,
+				9CA52A3AB1E40CDD25A27EA7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		992BA1BB50E339B2C42489B8 /* XCLocalSwiftPackageReference "../.." */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../..;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		47331B79AB16240C3C0AA930 /* LightRoute */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = LightRoute;
+		};
+		FE2F8B6F3240528314235EBA /* LightRoute */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = LightRoute;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 24D7BEE65D3106D4BA80CBBE /* Project object */;
+}

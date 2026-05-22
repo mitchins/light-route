@@ -1,0 +1,92 @@
+name: LightRouteSandbox
+options:
+  bundleIdPrefix: dev.lightroute
+  deploymentTarget:
+    iOS: "18.0"
+    tvOS: "18.0"
+packages:
+  LightRoute:
+    path: ../..
+targets:
+  LightRouteSandbox:
+    type: application
+    platform: iOS
+    deploymentTarget: "18.0"
+    sources:
+      - path: LightRouteSandbox
+    dependencies:
+      - package: LightRoute
+        product: LightRoute
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: dev.lightroute.sandbox
+        PRODUCT_NAME: LightRouteSandbox
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES
+        SWIFT_VERSION: 6.0
+        TARGETED_DEVICE_FAMILY: "1,2"
+  LightRouteSandboxUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    deploymentTarget: "18.0"
+    sources:
+      - path: LightRouteSandboxUITests
+    dependencies:
+      - target: LightRouteSandbox
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: dev.lightroute.sandbox.uitests
+        GENERATE_INFOPLIST_FILE: YES
+        SWIFT_VERSION: 6.0
+  LightRouteSandboxTV:
+    type: application
+    platform: tvOS
+    deploymentTarget: "18.0"
+    sources:
+      - path: LightRouteSandbox
+    dependencies:
+      - package: LightRoute
+        product: LightRoute
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: dev.lightroute.sandbox.tvos
+        PRODUCT_NAME: LightRouteSandbox
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES
+        SWIFT_VERSION: 6.0
+  LightRouteSandboxTVUITests:
+    type: bundle.ui-testing
+    platform: tvOS
+    deploymentTarget: "18.0"
+    sources:
+      - path: LightRouteSandboxUITests
+    dependencies:
+      - target: LightRouteSandboxTV
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: dev.lightroute.sandbox.tvos.uitests
+        GENERATE_INFOPLIST_FILE: YES
+        SWIFT_VERSION: 6.0
+schemes:
+  LightRouteSandbox:
+    build:
+      targets:
+        LightRouteSandbox: all
+        LightRouteSandboxUITests: [test]
+    test:
+      gatherCoverageData: true
+      coverageTargets:
+        - LightRouteSandbox
+      targets:
+        - LightRouteSandboxUITests
+  LightRouteSandbox-tvOS:
+    build:
+      targets:
+        LightRouteSandboxTV: all
+        LightRouteSandboxTVUITests: [test]
+    test:
+      gatherCoverageData: true
+      coverageTargets:
+        - LightRouteSandboxTV
+      targets:
+        - LightRouteSandboxTVUITests
